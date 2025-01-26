@@ -223,7 +223,7 @@ def add_event_in_db():
     # Save Patient in DataBase i.e. MongoDB
     result = db_helper.insert(event_data)
     return render_template("asuccess.html", message = "event uploaded Successfully",
-                           name=session["name"], email=session["email"])
+                           email=session["email"])
 
 #----------------------------fetch events-----------------------------------------------------
 
@@ -275,13 +275,13 @@ def fetch_events_from_db():
     
 
 @web_app.route("/delete-event/<id>")
-def delete_patient(id):
-    print("event to be deleted:", id)
+def delete_event(id):
+    print("Event to be deleted:", id)
     query = {"_id": ObjectId(id)}
     db_helper.collection = db_helper.db["events"]
     db_helper.delete(query)
     return render_template("asuccess.html", message = "event Deleted Successfully",
-                           name=session["name"], email=session["email"])
+                            email=session["email"])
 
 
 @web_app.route("/update/<id>")
@@ -308,7 +308,7 @@ def update_event(id):
                            event=patient_doc)
 
 @web_app.route("/update-event", methods=["POST"])
-def update_patient_in_db():
+def update_event_in_db():
 
     # Create a Dictionary with Data from HTML Register Form
     new_event_data = {
@@ -348,7 +348,7 @@ def add_register_in_db():
     db_helper.collection = db_helper.db["registrations"]
     # Save Patient in DataBase i.e. MongoDB
     result = db_helper.insert(event_data)
-    return render_template("success.html", message = "congratulations!.. your registeration is Successfully done!",
+    return render_template("success.html", message = "Congratulations!.. your Registeration is Successfully done!",
                            name=session["name"], email=session["email"])
 
 @web_app.route("/fetch-register")
