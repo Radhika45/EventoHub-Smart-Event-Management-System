@@ -5,6 +5,7 @@ import datetime
 import hashlib
 from database import MongoDBHelper
 from bson.objectid import ObjectId
+from werkzeug.security import generate_password_hash, check_password_hash
 
 web_app = Flask("Smart Event Management App")
 db_helper = MongoDBHelper()
@@ -215,7 +216,6 @@ def add_event_in_db():
         "time": request.form["time"],
         "description":request.form["description"],
         "user_email": session['email'],
-        "user_name": session['name'],
         "created_on": datetime.datetime.now()
     }
     
