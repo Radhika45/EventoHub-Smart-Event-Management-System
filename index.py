@@ -303,7 +303,6 @@ def update_event(id):
     patient_doc = result[0]
 
     return render_template("updatevent.html",
-                           name=session["name"], 
                            email=session["email"], 
                            event=patient_doc)
 
@@ -312,14 +311,12 @@ def update_event_in_db():
 
     # Create a Dictionary with Data from HTML Register Form
     new_event_data = {
-        "name": request.form["name"],
         "ename":request.form["ename"],
         "date": request.form["date"],
         "venue": request.form["venue"],
         "time": request.form["time"],
         "description":request.form["description"],
         "user_email": session['email'],
-        "user_name": session['name'],
         "created_on": datetime.datetime.now()
     }
     db_helper.collection = db_helper.db["events"]
@@ -328,7 +325,7 @@ def update_event_in_db():
     # Save Patient in DataBase i.e. MongoDB
     result = db_helper.update(new_event_data, query)
     return render_template("asuccess.html", message = "event Updated Successfully",
-                           name=session["name"], email=session["email"])
+                           email=session["email"])
 
 #------------------------------------------registrations--------------------------------------
 @web_app.route("/add-register", methods=["POST"])
